@@ -544,6 +544,12 @@ This file is part of Liberal Crime Squad.                                       
 					 troll += d.date[e]->skill_roll(SKILL_SCIENCE);
 					 aroll += pool[p]->skill_roll(SKILL_SCIENCE);
 				 }
+				 // Going on a date while masked can turn some people off.
+				 if (pool[p]->face_is_concealed())
+				 {
+					 printWeirdMask(d.date[e]->name, d.date[e]->align, 16);
+					 aroll -= LCSrandom(5);
+				 }
 				 int y = 17;
 				 if (dateresult(aroll, troll, d, e, p, y) == DATERESULT_ARRESTED) return 1;
 				 break;

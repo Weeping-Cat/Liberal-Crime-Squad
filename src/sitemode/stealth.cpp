@@ -395,6 +395,17 @@ This file is part of Liberal Crime Squad.                                       
 	 return uniformed;
  }
 
+ /* checks if a creature's face is covered */
+ char facecheck(const DeprecatedCreature &cr)
+ {
+	 bool concealed = cr.face_is_concealed();
+	 if (concealed)
+	 {
+		 return 1; // Hidden Face, Implement suspicion?
+	 }
+	 return 0; // Face is visible
+ }
+
  /* checks if a creature's weapon is suspicious */
  char weaponcheck(const DeprecatedCreature &cr, bool metaldetect)
  {
@@ -514,6 +525,15 @@ This file is part of Liberal Crime Squad.                                       
 					 {
 						 int result = activesquad->squad[i]->skill_roll(SKILL_DISGUISE);
 						 result -= timer;
+						 // Acting Casual with a mask is harder.
+						 for (int i = 0; i < 6; i++)
+						 {
+							 if (activesquad->squad[i] == NULL) break;
+							 if (facecheck(*activesquad->squad[i]))
+							 {
+								 result -= 1;
+							 }
+						 }
 						 if (fieldskillrate == FIELDSKILLRATE_HARD && result + 1 == disguise_difficulty)
 						 {// Hard more = You only learn if you just missed, and realize what you did wrong.
 							 activesquad->squad[i]->train(SKILL_DISGUISE, 10);
@@ -578,7 +598,19 @@ This file is part of Liberal Crime Squad.                                       
 				 pressAnyKey();
 			 }
 			 else if (!noticed)
-			 {
+			 {	 
+				 // They comment about liberal's suspicious mask.
+				 bool masked = 0;
+				 for (int i = 0; i < 6; i++)
+				 {
+					 if (activesquad->squad[i] == NULL) break;
+					 if (facecheck(*activesquad->squad[i]))
+					 {
+						 masked = 1;
+					 }
+				 }
+				 if (masked)
+					 printWeirdMask(encounter[n].name, encounter[n].align, 17);
 				 printActsNatural(activesquad->squad[0]->getNameAndAlignment().name, partysize);
 				 pressAnyKey();
 			 }
@@ -596,8 +628,21 @@ This file is part of Liberal Crime Squad.                                       
 				 setSiteAlarmOne();
 			 }
 			 else
-			 {
-				 printLooksAtSquadSuspiciously();
+			 {	 
+				 // They comment about liberal's suspicious mask.
+				 bool masked = 0;
+				 for (int i = 0; i < 6; i++)
+				 {
+					 if (activesquad->squad[i] == NULL) break;
+					 if (facecheck(*activesquad->squad[i]))
+					 {
+						 masked = 1;
+					 }
+				 }
+				 if (masked)
+					 printWeirdMask(encounter[n].name, encounter[n].align, 17);
+				 else
+					 printLooksAtSquadSuspiciously();
 				 int time = get_encounter_time(n);
 				 if (time < 1)time = 1;
 				 if (sitealarmtimer > time || sitealarmtimer == -1)sitealarmtimer = time;

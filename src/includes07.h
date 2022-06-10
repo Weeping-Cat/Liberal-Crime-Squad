@@ -1214,6 +1214,7 @@ void printHostageNegotiation(const string ename, const int etype, const int eali
 void printReleaseHostagesFooter(const int hostages);
 void printLetUsGoAndTheyGoFree(const string aname, const int hostages);
 void printTurnsAway(const string tkname, const int tkalign);
+void printWeirdMask(const string tkname, const int tkalign, const int line);
 void printAnimalDoesntUnderstand(const string tkname, const int tktype);
 void printThreatensWithAGun(const string aname, const string aweapon);
 void printINeedThisMuchRent(const string tkname, const int rent);

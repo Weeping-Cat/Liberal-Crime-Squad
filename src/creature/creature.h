@@ -116,6 +116,7 @@ public:
 	bool will_reload(bool force_ranged, bool force_melee) const;
 	int count_clips() const;
 	int count_weapons() const;
+	bool face_is_concealed() const { return get_armor().conceals_face(); }
 	bool weapon_is_concealed() const { return is_armed() && get_armor().conceals_weaponsize(weapon->get_size()); }
 	string get_weapon_string(int subtype) const;
 	string get_armor_string(bool fullname) const { return get_armor().equip_title(fullname); }
@@ -169,7 +170,13 @@ public:
 		int lawflagheat(int lawflag);
 		crimes_suspected[crime]++;
 		if (grant_heat) {
-			heat += lawflagheat(crime);
+			// Gives less heat if liberal has their face concealed //
+			if (face_is_concealed() && activity_type() != ACTIVITY_WRITE_GUARDIAN && activity_type() != ACTIVITY_HACKING && activity_type() != ACTIVITY_CCFRAUD) {
+				heat += lawflagheat(crime) / 4;
+			}
+			else {
+				heat += lawflagheat(crime);
+			}
 
 		}
 	}

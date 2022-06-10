@@ -424,7 +424,12 @@ void wannaHearSomethingDisturbing(DeprecatedCreature &a, DeprecatedCreature &tk)
 	printCommonXeDoesStatement(eprintWannaHearSomething,a.getNameAndAlignment().name);
 	pressAnyKey();
 	bool interested = tk.talkreceptive();
-	if (!interested && a.skill_check(SKILL_PERSUASION, DIFFICULTY_AVERAGE))
+	if (!interested && !a.face_is_concealed() && a.skill_check(SKILL_PERSUASION, DIFFICULTY_AVERAGE))
+	{
+		interested = true;
+	}
+	// It's a bit harder to get people to trust a liberal with a mask.
+	if (!interested && a.face_is_concealed() && a.skill_check(SKILL_PERSUASION, DIFFICULTY_CHALLENGING))
 	{
 		interested = true;
 	}
@@ -442,6 +447,11 @@ void wannaHearSomethingDisturbing(DeprecatedCreature &a, DeprecatedCreature &tk)
 	}
 	else
 	{
+		if (a.face_is_concealed()) //They comment on liberal's mask.
+		{
+			printWeirdMask(tk.getNameAndAlignment().name, tk.align, 11);
+			pressAnyKey();
+		}
 		printTurnsAway(tk.getNameAndAlignment().name, tk.align);
 		pressAnyKey();
 	}
@@ -467,6 +477,9 @@ void doYouComeHereOften(DeprecatedCreature &a, DeprecatedCreature &tk)
 		difficulty = DIFFICULTY_HEROIC;
 	const bool is_naked = a.is_naked_human();
 	if (is_naked) difficulty -= 4;
+	// Harder to pick up people while looking sus.
+	const bool face_hidden = a.face_is_concealed();
+	if (face_hidden) difficulty += 4;
 	if (a.skill_check(SKILL_SEDUCTION, difficulty))
 		succeeded = true;
 	if ((tk.animalgloss == ANIMALGLOSS_ANIMAL && lawList[LAW_ANIMALRESEARCH] != 2 && a.animalgloss != ANIMALGLOSS_ANIMAL) ||
@@ -511,6 +524,12 @@ void doYouComeHereOften(DeprecatedCreature &a, DeprecatedCreature &tk)
 	}
 	else
 	{
+		// They will comment on your mask.
+		if (face_hidden)
+		{
+			printWeirdMask(tk.getNameAndAlignment().name, tk.align, 12);
+			pressAnyKey();
+		}
 		printRejectsPickupLine(tk.getNameAndAlignment().name, tk.type, a.gender_liberal, selected_flirt);
 		pressAnyKey();
 		tk.make_cantbluff_one();

@@ -306,7 +306,7 @@ extern short sitealienate;
 extern short sitetype;
 extern siteblockst levelmap[MAPX][MAPY][MAPZ];
 
-
+void printWeirdMask(const string tkname, const int tkalign, const int line); // Needed that for Mask suspicion.
 void printShoutsForHelp(const string ename, const int ealign);
 bool isPrisoner(const string tkname);
 void printAlienation(const short sitealienate);

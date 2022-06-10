@@ -125,6 +125,8 @@ enum DateResults
 	DATERESULT_JOINED,
 	DATERESULT_ARRESTED
 };
+//So dates can see masks.
+void printWeirdMask(const string tkname, const int tkalign, const int line);
 int getpoolcreature(int id);
 char completedate(Deprecateddatest &d, int p);
 void removesquadinfo(DeprecatedCreature &cr);

@@ -362,6 +362,7 @@ const string CONST_NORMAL_TALK_TO_MUTANT_TXT = "normal_talk_to_mutant.txt";
 const string CONST_LOVINGLY_TALK_TO_MUTANT_TXT = "lovingly_talk_to_mutant.txt";
 const string CONST_PICKUPLINES_TXT = "pickupLines.txt";
 const string CONST_NO_FREE_SPEECH_FLIRT_TXT = "no_free_speech_flirt.txt";
+const string CONST_WEIRDMASK_TXT = "MaskLines.txt"; //Maybe we can add variation later, idk.
 
 const string talky = "talk\\";
 const string talk_combat = "talk_combat\\";

@@ -3418,6 +3418,7 @@ extern vector<vector<string> > normal_talk_to_mutant;
 extern vector<vector<string> > lovingly_talk_to_dog;
 extern vector<vector<string> > normal_talk_to_dog;
 
+vector<string> WeirdMask;
 vector<string> dog_rejection;
 vector<string> mutant_rejection;
 vector<string> that_is_disturbing;
@@ -3445,6 +3446,7 @@ vector<file_and_text_collection> talk_file_collection = {
 	customText(&lovingly_talk_to_dog, talky + CONST_LOVINGLY_TALK_TO_DOG_TXT, DOUBLE_LINE),
 	customText(&normal_talk_to_dog, talky + CONST_NORMAL_TALK_TO_DOG_TXT, DOUBLE_LINE),
 	customText(&dog_rejection, talky + CONST_DOG_REJECTION_TXT),
+	customText(&WeirdMask, talky + CONST_WEIRDMASK_TXT),
 	customText(&mutant_rejection, talky + CONST_MUTANT_REJECTION_TXT),
 	customText(&that_is_disturbing, talky + CONST_THAT_IS_DISTURBING_TXT),
 	customText(&that_is_not_disturbing, talky + CONST_THAT_IS_NOT_DISTURBING_TXT),
@@ -5592,11 +5594,13 @@ void printAcceptsPickupLine(const string aname, const string tkname, const vecto
 	addstrAlt(unnamed_String_Talk_cpp_073, gamelog);
 	gamelog.newline();
 }
+// Messed with that a bit to make the mask comments appear nicely.
 void printRejectsPickupLine(const string tkname, const int tktype, const int agender_liberal, const vector<string> selected_flirt) {
 
 	const bool extraline = (selected_flirt[1].empty() ?  0 : 1);
-	int y = 13 + (extraline ? 1 : 0);
-	printRespondantName(tkname, extraline);
+	int y = 15 + (extraline ? 1 : 0);
+	set_color_easy(WHITE_ON_BLACK_BRIGHT);
+	mvaddstrAlt(14, 1, tkname + " responds,", gamelog);
 	set_color_easy(RED_ON_BLACK_BRIGHT);
 	if (tktype == CREATURE_CORPORATE_CEO)
 	{
@@ -5620,16 +5624,30 @@ void printSaysWhat(const string tkname) {
 	mvaddstrAlt(13, 1, CONST_WHAT, gamelog);
 	gamelog.newline();
 }
+//Used to get comments on masks and concealed faces.
+void printWeirdMask(const string tkname, const int tkalign, const int line) {
+	set_color_easy(WHITE_ON_BLACK_BRIGHT);
+	mvaddstrAlt(line, 1, tkname+" responds,", gamelog);
+	set_color_easy(CYAN_ON_BLACK_BRIGHT);
+	mvaddstrAlt(line, len(tkname)+12, pickrandom(WeirdMask), gamelog);
+	set_color_easy(WHITE_ON_BLACK_BRIGHT);
+	gamelog.newline();
+	mvaddstrAlt(line+1, 1, tkname, gamelog);
+	printLooksAtSquadSuspiciously();
+	gamelog.newline();
+}
+// Had to mess around with this a bit to get it to display correctly with the new Mask comment.
 void printTurnsAway(const string tkname, const int tkalign) {
-	printRespondantName(tkname);
+	set_color_easy(WHITE_ON_BLACK_BRIGHT);
+	mvaddstrAlt(13, 1, tkname + " responds,", gamelog);
 	set_color_easy(CYAN_ON_BLACK_BRIGHT);
 	if (isPrisoner(tkname))
 	{
 		if (tkalign == ALIGN_LIBERAL)
-			mvaddstrAlt(13, 1, CONST_NOW_S_NOT_THE_TIME, gamelog);
-		else mvaddstrAlt(13, 1, CONST_LEAVE_ME_ALONE, gamelog);
+			mvaddstrAlt(13, len(tkname)+12, CONST_NOW_S_NOT_THE_TIME, gamelog);
+		else mvaddstrAlt(13, len(tkname)+12, CONST_LEAVE_ME_ALONE, gamelog);
 	}
-	else mvaddstrAlt(13, 1, unnamed_String_Talk_cpp_064, gamelog);
+	else mvaddstrAlt(13, len(tkname)+12, unnamed_String_Talk_cpp_064, gamelog);
 	set_color_easy(WHITE_ON_BLACK_BRIGHT);
 	addstrAlt(unnamed_String_Talk_cpp_065, gamelog);
 	gamelog.newline();

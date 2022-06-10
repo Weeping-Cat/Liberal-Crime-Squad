@@ -685,8 +685,11 @@ void doActivitySellBrownies(vector<DeprecatedCreature *> &brownies, char &clearf
 		//Check for police search
 		int dodgelawroll = LCSrandom(1 + 30 * lawList[LAW_DRUGS] + 3);
 		//Saved by street sense?
-		if (dodgelawroll == 0)
+		if (dodgelawroll == 0 && !brownies[s]->face_is_concealed())
 			dodgelawroll = brownies[s]->skill_check(SKILL_STREETSENSE, DIFFICULTY_AVERAGE);
+		//Masks kinda stand out
+		if (dodgelawroll == 0 && brownies[s]->face_is_concealed())
+			dodgelawroll = brownies[s]->skill_check(SKILL_STREETSENSE, DIFFICULTY_HARD);
 		if (dodgelawroll == 0 && lawList[LAW_DRUGS] <= 0) // Busted!
 		{
 			Deprecatednewsstoryst *ns = new Deprecatednewsstoryst;
