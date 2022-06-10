@@ -3,6 +3,8 @@
 void criminalizeparty(short crime);
 /* common - applies a crime to everyone in a location, or the entire LCS */
 void criminalizepool(short crime, long exclude = -1, short loc = -1);
+/* common - modified criminalize pool to only target newspaper writers */
+void criminalizepress(short crime, long exclude = -1, short loc = -1);
 /* common - gives juice to everyone in the active party */
 void juiceparty(long juice, long cap);
 /* common - purges empty squads from existance */

@@ -244,7 +244,7 @@ void surrenderToAuthorities(const int loc) {
 	if (kcount) criminalizepool(LAWFLAG_KIDNAPPING, -1, loc);
 	if (icount) criminalizepool(LAWFLAG_HIREILLEGAL, -1, loc);
 	if (LocationsPool::getInstance().getSiegeType(loc) == SIEGE_FIREMEN && hasPrintingPress(loc))
-		criminalizepool(LAWFLAG_SPEECH, -1, loc); // Criminalize pool for unacceptable speech
+		criminalizepress(LAWFLAG_SPEECH, -1, loc); // Criminalize press for unacceptable speech
 												  //LOOK FOR PRISONERS (MUST BE AFTER CRIMINALIZATION ABOVE)
 	for (int p = CreaturePool::getInstance().lenpool() - 1; p >= 0; p--)
 	{

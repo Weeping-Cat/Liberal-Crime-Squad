@@ -2155,7 +2155,7 @@ void publishSpecialEditions(char &clearformess) {
 		{
 			if (printnews(loottypeindex, len(nploc))) {
 				for (int l = 0; l < len(nploc); l++)
-					criminalizepool(LAWFLAG_TREASON, -1, nploc[l]);
+					criminalizepress(LAWFLAG_TREASON, -1, nploc[l]);
 			}
 		}
 	}

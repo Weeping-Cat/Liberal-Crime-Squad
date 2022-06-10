@@ -1523,6 +1523,25 @@ void criminalizepool(short crime, long exclude, short loc)
 		criminalize(*pool[p], crime);
 	}
 }
+
+// More accurate treason criminalization for Newspaper writers.
+void criminalizepress(short crime, long exclude, short loc)
+{
+	bool has_writers = 0;
+	for (int p = 0; p < CreaturePool::getInstance().lenpool(); p++)
+	{
+		if (p == exclude) continue;
+		if (loc != -1 && pool[p]->location != loc) continue;
+		if (pool[p]->activity_type() == ACTIVITY_WRITE_GUARDIAN) {
+			criminalize(*pool[p], crime);
+			has_writers = 1;
+		}
+	}
+	// If no writers, criminalize locations.
+	if (!has_writers)
+		criminalizepool(crime, exclude, loc);
+}
+
 /* common - gives juice to a given creature */
 void addjuice(DeprecatedCreature &cr, long juice, long cap)
 {
