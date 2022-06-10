@@ -176,6 +176,50 @@
         <qualitylevels>3</qualitylevels>
         <durability>20</durability>
     </armortype>
+			
+	<armortype idname="ARMOR_BLACKBLOC">
+        <make_difficulty>7</make_difficulty>
+        <make_price>350</make_price>
+        <armor>
+            <body>3</body>
+            <limbs>2</limbs>
+			<head>1</head>
+        </armor>
+        <body_covering>
+            <head>true</head>
+			<body>true</body>
+            <arms>true</arms>
+            <legs>true</legs>
+            <conceals_face>true</conceals_face>
+        </body_covering>
+        <name>Armored Black Bloc Outfit</name>
+        <shortname>Blck B. Armor</shortname>
+        <fencevalue>100</fencevalue>
+        <professionalism>2</professionalism>
+        <stealth_value>3</stealth_value>
+		<conceal_weapon_size>5</conceal_weapon_size>
+        <qualitylevels>3</qualitylevels>
+        <durability>20</durability>
+    </armortype>
+    
+	<armortype idname="OUTFIT_BLACKBLOC">
+        <make_difficulty>1</make_difficulty>
+        <make_price>30</make_price>
+		<body_covering>
+            <head>true</head>
+			<body>true</body>
+            <arms>true</arms>
+            <legs>true</legs>
+            <conceals_face>true</conceals_face>
+        </body_covering>
+        <name>Black Bloc Outfit</name>
+        <shortname>Blck B. Outfit</shortname>
+        <fencevalue>5</fencevalue>
+        <professionalism>2</professionalism>
+        <stealth_value>3</stealth_value>
+		<conceal_weapon_size>5</conceal_weapon_size>
+        <qualitylevels>2</qualitylevels>
+    </armortype>
 
     <armortype idname="ARMOR_BLACKROBE">
         <make_difficulty>5</make_difficulty>
