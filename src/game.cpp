@@ -202,7 +202,8 @@ string fixLineSpecialCharacter(char * toFix) {
 			case -70: // 'ú'
 				c = (char)0xa3;
 				break;
-			case (int) '¼':
+// The following cases causes compile error when compiling with Japanese Local in the machine because of the int variable.
+			case (int)'¼':
 				// 'ü'
 				c = (char)0x81;
 				break;
@@ -217,7 +218,7 @@ string fixLineSpecialCharacter(char * toFix) {
 			case (int) '¢':
 				// 'â'
 				c = (char)0x83;
-				break;
+				break; 
 			default:
 				c = toFix[i];
 				break;
